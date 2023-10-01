@@ -1,0 +1,18 @@
+### Get all inspections from HNB
+GET {{api_url}}/inspection
+TENANT: hnb
+
+### Get all inspections from INME
+GET {{api_url}}/inspection
+TENANT: inme
+
+### Create new inspection
+POST {{api_url}}/inspection
+Content-Type: application/json
+TENANT: hnb
+
+{
+  "type": "OFS",
+  "policyNumber": "LKDJFSIOJ",
+  "policyHolder": "Testing 123"
+}
