@@ -2,17 +2,17 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { InspectionModule } from './modules/inspection/inspection.module';
-import { MultiTenantPrismaClientService } from './utils/multi-tenant-prisma-client/multi-tenant-prisma-client.service';
+import { MultiTenantPrismaClientService } from './utils/multi-tenant/multi-tenant-prisma-client.service';
 import { ConfigModule } from '@nestjs/config';
 import { configs, validationSchema } from './configs';
 import { AsyncStorageModule } from './utils/async-storage/async-storage.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { AsyncStorageInterceptor } from './utils/async-storage/async-storage.interceptor';
+import { CacheModule } from '@nestjs/cache-manager';
+import { MultiTenantPgClientService } from './utils/multi-tenant/multi-tenant-pg-client.service';
 
 @Module({
   imports: [
-    AsyncStorageModule,
-    InspectionModule,
     ConfigModule.forRoot({
       load: [configs],
       validationSchema,
@@ -22,6 +22,9 @@ import { AsyncStorageInterceptor } from './utils/async-storage/async-storage.int
       },
       isGlobal: true,
     }),
+    AsyncStorageModule,
+    InspectionModule,
+    CacheModule.register({ isGlobal: true }),
   ],
   controllers: [AppController],
   providers: [
@@ -31,6 +34,7 @@ import { AsyncStorageInterceptor } from './utils/async-storage/async-storage.int
       useClass: AsyncStorageInterceptor,
     },
     MultiTenantPrismaClientService,
+    MultiTenantPgClientService,
   ],
 })
 export class AppModule {}

@@ -9,7 +9,9 @@ describe('MultiTenantPrismaClientService', () => {
       providers: [MultiTenantPrismaClientService],
     }).compile();
 
-    service = module.get<MultiTenantPrismaClientService>(MultiTenantPrismaClientService);
+    service = module.get<MultiTenantPrismaClientService>(
+      MultiTenantPrismaClientService,
+    );
   });
 
   it('should be defined', () => {

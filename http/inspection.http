@@ -6,6 +6,10 @@ TENANT: hnb
 GET {{api_url}}/inspection
 TENANT: inme
 
+### Get all inspections from Invalid Tenant
+GET {{api_url}}/inspection
+TENANT: inme2
+
 ### Create new inspection
 POST {{api_url}}/inspection
 Content-Type: application/json
